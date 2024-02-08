@@ -7,59 +7,200 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About Countries API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+API built to get the information of countries, states and cities. Result returned in JSON format.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Output example
 
-## Learning Laravel
+The JSON result consist in three elements: data, links and meta.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Data: Contains the result from the query. This is the main result you will need most of the time.
+Links: Contains links to next and previous result based in pagination.
+Meta: Contains  links for results in the group, from 1 to last result, in groups of ten.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Example of a result:
+``` 
+ "data": [
+        {
+        ...
+        }
+    ],
+    "links": {
+        "first": "http://localhost/city-api/public/api/v1/countries?page=1",
+        "last": "http://localhost/city-api/public/api/v1/countries?page=25",
+        "prev": null,
+        "next": "http://localhost/city-api/public/api/v1/countries?page=2"
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 25,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://localhost/city-api/public/api/v1/countries?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "...",
+                "active": false
+            },
+            {
+                "url": "http://localhost/city-api/public/api/v1/countries?page=25",
+                "label": "25",
+                "active": false
+            },
+            {
+                "url": "http://localhost/city-api/public/api/v1/countries?page=2",
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://localhost/city-api/public/api/v1/countries",
+        "per_page": 10,
+        "to": 10,
+        "total": 250
+    }
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Countries methods
 
-## Laravel Sponsors
+GET /countries/
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Retrieve the information of all countries available globally.
 
-### Premium Partners
+Inputs:
+No needed
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Outputs:
+data: List of countries
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+``` 
+ "data": [
+        {
+            "id": 1,
+            "name": "Afghanistan",
+            "iso2": "AF",
+            "iso3": "AFG",
+            "region_id": 3,
+            "subregion_id": 14
+        },
+        ...
+        {
+            "id": 10,
+            "name": "Antigua And Barbuda",
+            "iso2": "AG",
+            "iso3": "ATG",
+            "region_id": 2,
+            "subregion_id": 7
+        }
+    ],
+    "links": {
+        ...
+    },
+    "meta": {
+        ...
+    }
+```
 
-## Code of Conduct
+GET /countries/{country_id}/states
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Retrieve the information of all states of a specific country.
 
-## Security Vulnerabilities
+Inputs:
+country_id: ID from the list of countries 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Outputs:
+data: List of states of a specific country
+
+```	
+	"data": [
+        {
+            "id": 1069,
+            "name": "Tipperary",
+            "country_id": 105,
+            "country_code": "IE",
+            "iso2": "TA"
+        },
+        {
+            "id": 1070,
+            "name": "Sligo",
+            "country_id": 105,
+            "country_code": "IE",
+            "iso2": "SO"
+        },
+        {
+            "id": 1071,
+            "name": "Donegal",
+            "country_id": 105,
+            "country_code": "IE",
+            "iso2": "DL"
+        },
+        {
+            "id": 1072,
+            "name": "Dublin",
+            "country_id": 105,
+            "country_code": "IE",
+            "iso2": "D"
+        },
+        ...
+        {
+            "id": 1078,
+            "name": "Offaly",
+            "country_id": 105,
+            "country_code": "IE",
+            "iso2": "OY"
+        }
+    ],
+    "links": {
+       ...
+    },
+    "meta": {
+	...
+    }
+```
+
+
+``` 
+ "data": [
+        {
+            "id": 1,
+            "name": "Afghanistan",
+            "iso2": "AF",
+            "iso3": "AFG",
+            "region_id": 3,
+            "subregion_id": 14
+        },
+        ...
+        {
+            "id": 10,
+            "name": "Antigua And Barbuda",
+            "iso2": "AG",
+            "iso3": "ATG",
+            "region_id": 2,
+            "subregion_id": 7
+        }
+    ],
+    "links": {
+        ...
+    },
+    "meta": {
+        ...
+    }
+```
+
+
+
+
 
 ## License
 
