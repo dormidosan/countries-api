@@ -79,17 +79,18 @@ Retrieve the information of all countries available globally.
 
 **Parameters:**
 
-no parameter. Get all the countries and use pagination of 10 results.
-
 ``` URI/countries```
 
-nopagination (optional). Get all the countries in a JSON format. nopagination override country parameter.
+no parameter. Get all the countries and use pagination of 10 results.
 
 ``` URI/countries?nopagination ```
 
-country (optional). Filter based on the specific string. 
+nopagination (optional). Get all the countries in a JSON format. nopagination override country parameter.
 
 ``` URI/countries?country=Irel ```
+country (optional). Filter based on the specific string. 
+
+
 
 
 
