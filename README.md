@@ -11,16 +11,16 @@
 
 API built to get the information of countries, states and cities. Result returned in JSON format.
 
-
 ## Output example
 
 The JSON result consist in three elements: data, links and meta.
 
 Data: Contains the result from the query. This is the main result you will need most of the time.
 Links: Contains links to next and previous result based in pagination.
-Meta: Contains  links for results in the group, from 1 to last result, in groups of ten.
+Meta: Contains links for results in the group, from 1 to last result, in groups of ten.
 
 Example of a result:
+
 ``` 
  "data": [
         {
@@ -77,12 +77,22 @@ GET /countries/
 
 Retrieve the information of all countries available globally.
 
-Inputs:
-No needed
+Parameters:
+
+no parameter. Get all the countries and use pagination of 10 results.
+``` URI/countries```
+
+nopagination (optional). Get all the countries in a JSON format. nopagination override country parameter.
+
+``` URI/countries?nopagination ```
+
+country (optional). Filter based on the specific string. 
+``` URI/countries?country=Irel ```
+
+
 
 Outputs:
 data: List of countries
-
 
 ``` 
  "data": [
@@ -117,7 +127,7 @@ GET /countries/{country_id}/states
 Retrieve the information of all states of a specific country.
 
 Inputs:
-country_id: ID from the list of countries 
+country_id: ID from the list of countries
 
 Outputs:
 data: List of states of a specific country
@@ -168,39 +178,6 @@ data: List of states of a specific country
 	...
     }
 ```
-
-
-``` 
- "data": [
-        {
-            "id": 1,
-            "name": "Afghanistan",
-            "iso2": "AF",
-            "iso3": "AFG",
-            "region_id": 3,
-            "subregion_id": 14
-        },
-        ...
-        {
-            "id": 10,
-            "name": "Antigua And Barbuda",
-            "iso2": "AG",
-            "iso3": "ATG",
-            "region_id": 2,
-            "subregion_id": 7
-        }
-    ],
-    "links": {
-        ...
-    },
-    "meta": {
-        ...
-    }
-```
-
-
-
-
 
 ## License
 
