@@ -125,7 +125,7 @@ Retrieve the information of all states of a specific country.
 
 Inputs:<br />
 *country_id:* ID from the list of countries <br />
-*nopagination (optional):* Get all the states in a JSON format. nopagination override country parameter.
+*nopagination (optional):* Get all the states from a given country in a JSON format. 
 
 Outputs:<br />
 *data:* List of states of a specific country
@@ -186,7 +186,7 @@ Retrieve the information of all cities of a specific state.
 
 **Inputs:**<br />
 *state_id:* ID from the list of states <br />
-*nopagination (optional):* Get all the cities in a JSON format. nopagination override country parameter.
+*nopagination (optional):* Get all the cities from a given state in a JSON format.
 
 **Outputs:**<br />
 *data:* List of cities of a specific state
