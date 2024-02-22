@@ -14,32 +14,19 @@ use Illuminate\Http\Request;
 
 class StateController extends Controller
 {
-    //
     protected $limiter;
 
     public function __construct(RateLimiter $limiter)
     {
         $this->limiter = $limiter;
     }
-    public function index(Request $request){
-        #dd($request->ip()); CHECK # of request
-        if (!$request->has('mensaje')) {
-            // Manually check and apply rate limiting
-            $key = $request->ip(); // You can use a different key if needed
-            $maxAttempts = 2;
-            $decayMinutes = 1;
-            if ($this->limiter->tooManyAttempts($key, $maxAttempts)) {
-                return response()->json(['error' => 'Too Many Attempts.']);
-            }
-            $this->limiter->hit($key, $decayMinutes * 60);
+
+    public function cities(State $state, Request $request){
+        if($request->has('nopagination')){
+            $cities = $state->cities;
+            $results = ['data'=> new CityCollection($cities), 'links'=>[], 'meta' => []];
+            return response()->json($results);
         }
-
-        $partial_name = $request->input('state');
-        $states = State::where('name', 'like', '%'.$partial_name.'%')->paginate(10);
-        return new StateCollection($states->appends($request->query()));
-    }
-
-    public function cities(State $state){
         $cities = $state->cities()->paginate(10);
         return new CityCollection($cities);
     }

@@ -77,26 +77,20 @@ Example of a result:
 
 Retrieve the information of all countries available globally.
 
-**Parameters:**
+**Inputs:**
 
-``` URI/countries```
+```URI/countries```<br />
+*No input:* Get all the countries and use pagination of 10 results.
 
-no parameter. Get all the countries and use pagination of 10 results.
+```URI/countries?nopagination ```<br />
+*nopagination (optional):* Get all the countries in a JSON format. nopagination override country parameter.
 
-``` URI/countries?nopagination ```
-
-nopagination (optional). Get all the countries in a JSON format. nopagination override country parameter.
-
-``` URI/countries?country=Irel ```
-country (optional). Filter based on the specific string. 
+```URI/countries?country=Irel ```<br />
+*country (optional):* Filter based on the specific string. 
 
 
-
-
-
-**Outputs:**
-
-data: List of countries
+**Outputs:**<br />
+*data:* List of countries
 
 ``` 
  "data": [
@@ -126,15 +120,15 @@ data: List of countries
     }
 ```
 
-GET /countries/{country_id}/states
-
+```URI/countries/{country_id}/states?nopagination```<br />
 Retrieve the information of all states of a specific country.
 
-Inputs:
-country_id: ID from the list of countries
+Inputs:<br />
+*country_id:* ID from the list of countries <br />
+*nopagination (optional):* Get all the states in a JSON format. nopagination override country parameter.
 
-Outputs:
-data: List of states of a specific country
+Outputs:<br />
+*data:* List of states of a specific country
 
 ```	
 	"data": [
@@ -180,6 +174,60 @@ data: List of states of a specific country
     },
     "meta": {
 	...
+    }
+```
+
+## States methods
+
+**GET /states/**
+
+```URI/states/{state_id}/cities```<br />
+Retrieve the information of all cities of a specific state.
+
+**Inputs:**<br />
+*state_id:* ID from the list of states <br />
+*nopagination (optional):* Get all the cities in a JSON format. nopagination override country parameter.
+
+**Outputs:**<br />
+*data:* List of cities of a specific state
+
+``` 
+    "data": [
+    {
+      "id": 57221,
+      "name": "Dromiskin",
+      "state_id": 1073,
+      "country_id": 105,
+      "country_code": "IE"
+    },
+    {
+      "id": 57222,
+      "name": "Drumcondra",
+      "state_id": 1073,
+      "country_id": 105,
+      "country_code": "IE"
+    },
+    {
+      "id": 57223,
+      "name": "Dublin",
+      "state_id": 1073,
+      "country_id": 105,
+      "country_code": "IE"
+    },
+    ...
+    {
+      "id": 57231,
+      "name": "Dunleer",
+      "state_id": 1073,
+      "country_id": 105,
+      "country_code": "IE"
+    }      
+    ],
+    "links": {
+        ...
+    },
+    "meta": {
+        ...
     }
 ```
 

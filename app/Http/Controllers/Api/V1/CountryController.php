@@ -34,9 +34,18 @@ class CountryController extends Controller
 
     }
 
-    public function states(Country $country){
+    public function states(Country $country, Request $request){
+
+        if($request->has('nopagination')){
+            $states = $country->states;
+            $results = ['data'=> new StateCollection($states), 'links'=>[], 'meta' => []];
+            return response()->json($results);
+        }
+
         $states = $country->states()->paginate(10);
         return new StateCollection($states);
     }
+
+    //new function
 
 }
