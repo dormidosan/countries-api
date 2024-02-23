@@ -32,7 +32,7 @@ Route::middleware('throttle:60,1')->group(function () {
 });
 */
 
-Route::group(['prefix' => 'v1','namespace'=> 'App\Http\Controllers\Api\V1'], function (){
+Route::group(['prefix' => 'v1','namespace'=> 'App\Http\Controllers\Api\V1', 'middleware' => 'throttle:watchdog'], function (){
     Route::get('countries/{country}/states', ['uses'=> 'CountryController@states']);
     Route::get('states/{state}/cities', ['uses'=> 'StateController@cities']);
     Route::apiResource('cities',CityController::class);

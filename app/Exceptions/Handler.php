@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\JsonResponse;
+
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -23,8 +26,33 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (ThrottleRequestsException $e, $request) {
+            //return response()->json(['message' => 'Toosa Many Attempts.'], 429);
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof ThrottleRequestsException) {
+            // Customize the response for 429 Too Many Requests error
+            //return response()->json(['message' => 'Too Many Attempts.'], 429);
+            //return response('Too many attempts', 200)->header('Content-Type', 'text/html');
+            return response('{"message":"Too many attempts, retry in '.$this->getSecondsBeforeNextAttempt($e).' seconds"}', 200)->header('Content-Type', 'application/json');
+
+        }
+
+        return parent::render($request, $e);
+    }
+
+    // Get the number of seconds before the next attempt.
+    protected function getSecondsBeforeNextAttempt(ThrottleRequestsException $e)
+    {
+        return optional($e->getHeaders(), function ($headers) {
+            return $headers['Retry-After'];
+        }) ?? 60;
     }
 }
