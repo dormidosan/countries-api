@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\CountryController;
 use App\Http\Controllers\Api\V1\RegionController;
 use App\Http\Controllers\Api\V1\StateController;
 use App\Http\Controllers\Api\V1\SubregionController;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/', function () {
+    return citiesAPIResponse();
+});
+Route::get('/v1', function () {
+    return citiesAPIResponse();
+});
+
+function citiesAPIResponse(): JsonResponse
+{
+    return response()->json([
+        "message" => "Welcome to cities API",
+        "documentation" => "https://github.com/dormidosan/countries-api"
+    ]);
+}
 /*
 Route::middleware('throttle:60,1')->group(function () {
     Route::group(['prefix' => 'v1','namespace'=> 'App\Http\Controllers\Api\V1'], function (){

@@ -21,7 +21,7 @@ class WorldSeeder extends Seeder
 
 
 
-         $sqlFilePath = base_path('database/seeders/world_timestamp.sql');
+         $sqlFilePath = base_path('.ignorefiles/world_timestamp.sql');
          $sql = file_get_contents($sqlFilePath);
          $statements = array_filter(array_map('trim', explode(';', $sql)));
 

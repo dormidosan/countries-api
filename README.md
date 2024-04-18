@@ -92,7 +92,7 @@ Retrieve the information of all countries available globally.
 **Outputs:**<br />
 *data:* List of countries
 
-``` 
+```
  "data": [
         {
             "id": 1,
@@ -130,8 +130,8 @@ Inputs:<br />
 Outputs:<br />
 *data:* List of states of a specific country
 
-```	
-	"data": [
+```
+ "data": [
         {
             "id": 1069,
             "name": "Tipperary",
@@ -192,7 +192,7 @@ Retrieve the information of all cities of a specific state.
 *data:* List of cities of a specific state
 
 ``` 
-    "data": [
+ "data": [
     {
       "id": 57221,
       "name": "Dromiskin",

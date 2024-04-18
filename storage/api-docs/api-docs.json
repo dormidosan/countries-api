@@ -1,0 +1,260 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Cities, states and countries",
+        "description": "List of cities, states and countries",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/city-api/public/api/v1"
+        }
+    ],
+    "paths": {
+        "/countries": {
+            "get": {
+                "tags": [
+                    "Countries"
+                ],
+                "summary": "Retrieve list of countries",
+                "description": "Returns a paginated list of countries.",
+                "operationId": "a08ff99b9afd86c714c683cb74c584b8",
+                "parameters": [
+                    {
+                        "name": "nopagination",
+                        "in": "query",
+                        "description": "Flag to disable pagination",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "Filter countries by partial name",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Afghanistan"
+                                                    },
+                                                    "iso2": {
+                                                        "type": "string",
+                                                        "example": "AF"
+                                                    },
+                                                    "iso3": {
+                                                        "type": "string",
+                                                        "example": "AFG"
+                                                    },
+                                                    "region_id": {
+                                                        "type": "number",
+                                                        "example": "3"
+                                                    },
+                                                    "subregion_id": {
+                                                        "type": "number",
+                                                        "example": "14"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "description": "Links for pagination, if applicable",
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "description": "Metadata about the response",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/countries/{country}/states": {
+            "get": {
+                "tags": [
+                    "Countries"
+                ],
+                "summary": "Retrieve states for a specific country",
+                "description": "Returns a list of states for the specified country.",
+                "operationId": "b322b54f35ee24a01d362258dab60c5f",
+                "parameters": [
+                    {
+                        "name": "country",
+                        "in": "path",
+                        "description": "ID of the country",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "nopagination",
+                        "in": "query",
+                        "description": "Flag to disable pagination",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "The ID of the location",
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "description": "The name of the location",
+                                                        "type": "string"
+                                                    },
+                                                    "country_id": {
+                                                        "description": "The ID of the country to which the location belongs",
+                                                        "type": "integer"
+                                                    },
+                                                    "country_code": {
+                                                        "description": "The country code of the location",
+                                                        "type": "string"
+                                                    },
+                                                    "iso2": {
+                                                        "description": "The ISO2 code of the location",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "description": "Links for pagination, if applicable",
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "description": "Metadata about the response",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/states/{state_id}/cities": {
+            "get": {
+                "tags": [
+                    "States"
+                ],
+                "summary": "Retrieve cities for a specific state",
+                "description": "Returns a list of cities for the specified state.",
+                "operationId": "746007e6dac7c3ce5c8e0662d7ca8942",
+                "parameters": [
+                    {
+                        "name": "state_id",
+                        "in": "path",
+                        "description": "ID of the state",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "nopagination",
+                        "in": "query",
+                        "description": "Flag to disable pagination",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "The unique identifier for the city",
+                                                        "type": "integer",
+                                                        "format": "int64"
+                                                    },
+                                                    "name": {
+                                                        "description": "The name of the city",
+                                                        "type": "string"
+                                                    },
+                                                    "state_id": {
+                                                        "description": "The ID of the state the city belongs to",
+                                                        "type": "integer",
+                                                        "format": "int64"
+                                                    },
+                                                    "country_id": {
+                                                        "description": "The ID of the country the city belongs to",
+                                                        "type": "integer",
+                                                        "format": "int64"
+                                                    },
+                                                    "country_code": {
+                                                        "description": "The country code of the city",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "description": "Links related to the response.",
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "description": "Meta information about the response.",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
