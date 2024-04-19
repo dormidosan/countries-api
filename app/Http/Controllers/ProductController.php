@@ -128,19 +128,19 @@ class ProductController extends Controller
     {
         try {
             $review = $request->input('comment');
-
-            $response = Http::post('https://ap8i28dv72.execute-api.us-east-1.amazonaws.com/BlogoSphere/sentiment_analysis', [
+            $response = Http::post(
+                'https://ap8i28dv72.execute-api.us-east-1.amazonaws.com/BlogoSphere/sentiment_analysis',
+                [
                 'text' => $review
-            ]);
-
+                ]);
             if ($response->status() == 200) {
                 $response_body = json_decode($response->body());
                 $value = json_decode($response_body->body);
             } else {
-                echo 'Unexpected HTTP status: ' . $response->status() . ' ' . $response->body();
+                return json_encode(['msg' => 'Unexpected HTTP status']) ;
             }
         } catch (\Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            return json_encode(['msg' => 'Exception status']) ;
         }
         return json_encode(['sentiment' => $value->compound]);
     }
@@ -155,9 +155,10 @@ class ProductController extends Controller
     public function passwords()
     {
         try {
-            $response = Http::post('https://jaqe9ppsf3.execute-api.eu-west-1.amazonaws.com/dev', [
-                'username' => $this->generateRandomString()
-            ]);
+            $response = Http::post('https://jaqe9ppsf3.execute-api.eu-west-1.amazonaws.com/dev',
+                [
+                'username' => $this->getSeed()
+                ]);
 
             if ($response->status() == 200) {
                 $response_body = json_decode($response->body());
@@ -165,15 +166,15 @@ class ProductController extends Controller
                 $parts = explode(':', $value);
                 $result = trim($parts[1]);
             } else {
-                echo 'Unexpected HTTP status: ' . $response->status() . ' ' . $response->body();
+                return json_encode(['msg' => 'Unexpected HTTP status']) ;
             }
         } catch (\Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            return json_encode(['msg' => 'Exception status']) ;
         }
         return json_encode(['password' => $result]);
     }
 
-    function generateRandomString($length = 10) {
+    function getSeed($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {

@@ -16,13 +16,13 @@
             <li class="nav-item">
                 <a href="{{route('index')}}" class="nav-link">
                     <i class="link-icon" data-feather="search"></i>
-                    <span class="link-title">Search</span>
+                    <span class="link-title">Index</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('index')}}" class="nav-link">
+                <a href="{{route('catalog')}}" class="nav-link">
                     <i class="link-icon" data-feather="book-open"></i>
-                    <span class="link-title">My options</span>
+                    <span class="link-title">Catalog</span>
                 </a>
             </li>
             <li class="nav-item nav-category">Management</li>
@@ -32,7 +32,7 @@
 
                     <span class="link-icon mdi mdi-needle"></span>
 
-                    <span class="link-title">Contact us</span>
+                    <span class="link-title">Products</span>
                 </a>
             </li>
             <li class="nav-item">

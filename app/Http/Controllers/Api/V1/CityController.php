@@ -15,7 +15,6 @@ class CityController extends Controller
         $request->input('country');
 
         return new CityCollection(City::where('')->take(10));
-        //return new CityCollection(City::paginate());
     }
 
     /**

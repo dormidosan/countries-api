@@ -17,8 +17,8 @@
         </div>
 
         <div class="block mt-4">
-            <label for="ramdomizer" class="inline-flex items-center">
-                <x-input-label for="ramdomizer" :value="__('ramdomizer')" id="ramdomizer" />
+            <label for="randomizer" class="inline-flex items-center">
+                <x-input-label for="randomizer" :value="__('Generate random')" id="randomizer" />
                 <x-secondary-button class="ms-3"  onclick="generatePassword()">
                     {{ __('generate') }}
                 </x-secondary-button>
@@ -73,12 +73,11 @@
                 console.log(response);
                 const data = JSON.parse(response);
                 if (response ) {
-                    document.getElementById('ramdomizer').innerText = data.password;
-                } else {
-
+                    const randomlabel = document.getElementById('randomizer');
+                    randomlabel.innerText = data.password
+                    randomlabel.style.color = 'red';
                 }
             },
-
         });
     }
 

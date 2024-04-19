@@ -2,7 +2,7 @@
     <div class="reviews">
         <div class="review-item">
 
-            <h4 class="analysis"></h4>
+            <h4 class="analysis">Loading... <span class="spinner"></span></h4>
             <div class="sentiment-bar">
                 <div  class="sentiment-fill"></div>
             </div>

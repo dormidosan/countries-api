@@ -95,20 +95,21 @@ class CountryController extends Controller
     {
         if ($request->has('nopagination')) {
             $countries = Country::all();
-            $results = ['data' => new CountryCollection($countries), 'links' => [], 'meta' => []];
+            $results = ['data' => new CountryCollection($countries),
+                'links' => [],
+                'meta' => []
+            ];
             return response()->json($results);
         }
-
         $partial_name = $request->input('country');
         if ($partial_name) {
-            $countries = Country::where('name', 'like', '%' . $partial_name . '%')->paginate(10);
+            $countries = Country::where(
+                'name', 'like', '%' . $partial_name . '%'
+            )->paginate(10);
         } else {
             $countries = Country::paginate(10);
         }
-
-        #dd($countries);
         return new CountryCollection($countries->appends($request->query()));
-
     }
 
 
@@ -190,7 +191,6 @@ class CountryController extends Controller
      */
     public function states(Country $country, Request $request)
     {
-
         if ($request->has('nopagination')) {
             $states = $country->states;
             $results = ['data' => new StateCollection($states), 'links' => [], 'meta' => []];
