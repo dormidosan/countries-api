@@ -41,15 +41,16 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting(): void
     {
+        //For logged user
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(120)->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(1200)->by(optional($request->user())->id ?: $request->ip());
         });
 
         RateLimiter::for('watchdog', function (Request $request) {
             if ($request->has('mytoken')){ // || app()->isLocal() ){
                 return null;
             }
-            return Limit::perMinute(5)->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(120)->by(optional($request->user())->id ?: $request->ip());
         });
     }
 }
